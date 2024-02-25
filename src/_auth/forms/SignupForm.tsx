@@ -9,6 +9,7 @@ import {
   FormMessage
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { createUserAccount } from "@/lib/appwrite/api";
 import { SignupValidation } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -16,6 +17,8 @@ import { Link } from "react-router-dom";
 import { z } from 'zod';
 
 const SignupForm = () => {
+
+  const isLoading: Boolean = false;
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof SignupValidation>>({
@@ -29,10 +32,9 @@ const SignupForm = () => {
   })
 
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof SignupValidation>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values)
+  async function onSubmit(values: z.infer<typeof SignupValidation>) {
+    const newUser = await createUserAccount(values);
+    console.log(newUser)
   }
 
   return (
@@ -48,7 +50,7 @@ const SignupForm = () => {
         </p>
 
         <form
-          onSubmit={form.handleSubmit(handleSignup)}
+          onSubmit={form.handleSubmit(createUserAccount)}
           className="flex flex-col gap-5 w-full mt-4">
           <FormField
             control={form.control}
@@ -107,13 +109,13 @@ const SignupForm = () => {
           />
 
           <Button type="submit" className="shad-button_primary">
-            {isCreatingAccount || isSigningInUser || isUserLoading ? (
+            {isLoading ? (
               <div className="flex-center gap-2">
                 <Loader /> Loading...
               </div>
-            ) : (
+            ) :
               "Sign Up"
-            )}
+            }
           </Button>
 
           <p className="text-small-regular text-light-2 text-center mt-2">
