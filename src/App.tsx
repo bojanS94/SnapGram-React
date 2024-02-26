@@ -1,10 +1,10 @@
-import { Route, Routes } from 'react-router-dom'
-import AuthLayout from './_auth/AuthLayout'
-import SigninForm from './_auth/forms/SigninForm'
-import SignupForm from './_auth/forms/SignupForm'
-import { Home } from './_root/pages'
-import './globals.css'
-import RootLayout from './_root/pages/RootLayout'
+import { Route, Routes } from 'react-router-dom';
+import AuthLayout from './_auth/AuthLayout';
+import SigninForm from './_auth/forms/SigninForm';
+import SignupForm from './_auth/forms/SignupForm';
+import { Home } from './_root/pages';
+import './globals.css';
+import RootLayout from './_root/pages/RootLayout';
 
 const App = () => {
   return (
@@ -12,8 +12,8 @@ const App = () => {
       <Routes>
         {/* Public routes */}
         <Route element={<AuthLayout />}>
-          <Route path='/sign-in' element={<SigninForm />}></Route>
-          <Route path='/sign-up' element={<SignupForm />}></Route>
+          <Route path="/sign-in" element={<SigninForm />}></Route>
+          <Route path="/sign-up" element={<SignupForm />}></Route>
         </Route>
 
         {/* Private routes */}
@@ -22,7 +22,7 @@ const App = () => {
         </Route>
       </Routes>
     </main>
-  )
-}
+  );
+};
 
-export default App
+export default App;
