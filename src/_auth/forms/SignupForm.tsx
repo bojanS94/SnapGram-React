@@ -11,6 +11,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/components/ui/use-toast';
 import { createUserAccount } from '@/lib/appwrite/api';
+import { useCreateUserAccountMutation } from '@/lib/react-query/queriesAndMutations';
 import { SignupValidation } from '@/lib/validation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
@@ -18,8 +19,10 @@ import { Link } from 'react-router-dom';
 import { z } from 'zod';
 
 const SignupForm = () => {
-  const isLoading: Boolean = false;
   const { toast } = useToast();
+
+  const { mutateAsync: createUserAccount, isLoading: isCreatingUser } =
+    useCreateUserAccountMutation();
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof SignupValidation>>({
